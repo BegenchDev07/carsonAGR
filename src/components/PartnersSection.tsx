@@ -23,14 +23,13 @@ const PartnersSection = () => {
 
   return (
     <section className="py-16 bg-gray-50" aria-labelledby="partners-heading">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 id="partners-heading" className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Trusted Partners
           </h2>
         </div>
-
-        {/* Partners Carousel */}
+        
         <div className="relative overflow-hidden" role="region" aria-label="Partner companies carousel">
           <div 
             className="flex transition-transform duration-500 ease-in-out"
@@ -44,22 +43,13 @@ const PartnersSection = () => {
                 aria-label={`Partner: ${partner.name}`}
               >
                 <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 h-32 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-gray-100 rounded-xl mx-auto mb-3 flex items-center justify-center group-hover:bg-blue-50 transition-colors duration-300">
-                      <span className="text-2xl font-bold text-gray-600 group-hover:text-blue-600 transition-colors duration-300">
-                        {partner.name.charAt(0)}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                      {partner.name}
-                    </h3>
-                  </div>
+                  
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
