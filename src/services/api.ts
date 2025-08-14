@@ -113,7 +113,7 @@ export const getImageUrl = (imageUrl: string): string => {
   if (imageUrl.startsWith('http')) {
     return imageUrl;
   }
-  return `http://95.179.170.106:1337${imageUrl}`;
+  return `https://api.skyelectronica.com/${imageUrl}`;
 };
 
 export const productsApi = {
