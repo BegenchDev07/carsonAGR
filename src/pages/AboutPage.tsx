@@ -59,7 +59,7 @@ const AboutPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              About SkyElectronica
+              About SkyElectronics
             </h1>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto leading-relaxed">
               We're pioneering the future of autonomous flight technology, creating innovative 
@@ -109,7 +109,7 @@ const AboutPage = () => {
               <div className="space-y-6 text-gray-600 leading-relaxed">
                 <p>
                   Founded in 2018 by a team of aerospace engineers and electronics specialists, 
-                  SkyElectronica emerged from a shared vision to revolutionize how we think about 
+                  SkyElectronics emerged from a shared vision to revolutionize how we think about 
                   autonomous flight and electronics technology.
                 </p>
                 <p>
@@ -131,7 +131,7 @@ const AboutPage = () => {
             <div className="relative">
               <img
                 src="https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1"
-                alt="SkyElectronica facility and drone technology development"
+                alt="SkyElectronics facility and drone technology development"
                 loading="lazy"
                 decoding="async"
                 width="800"

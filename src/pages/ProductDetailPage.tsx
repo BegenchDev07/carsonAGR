@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { 
-  ArrowLeft, Share2, 
-  Camera, Battery, Wifi, Shield, Zap, Globe,
-  Play, Download, CheckCircle, Loader
-} from 'lucide-react';
+import { ArrowLeft, Share2, CheckCircle, Loader } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import GetQuoteModal from '../components/GetQuoteModal';
+import ProductDetailModal from '../components/ProductDetailModal';
 import { productsApi, Product, getImageUrl } from '../services/api';
+import { useMediaQuery } from 'react-responsive'; // For mobile responsiveness
 
 const ProductDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +17,9 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // To control modal state
+
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -42,6 +43,17 @@ const ProductDetailPage = () => {
     fetchProduct();
   }, [id]);
 
+  // Memoize all images URLs
+  const allImageUrls = useMemo(() => {
+    if (!product) return [];
+    const images: string[] = [];
+    if (product.display_image) images.push(getImageUrl(product.display_image.url));
+    if (product.secondary_images) {
+      images.push(...product.secondary_images.map((img: any) => getImageUrl(img.url)));
+    }
+    return images;
+  }, [product]);
+
   const handleShare = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -49,7 +61,6 @@ const ProductDetailPage = () => {
       setTimeout(() => setShowCopyNotification(false), 2000);
     } catch (err) {
       console.error('Failed to copy URL:', err);
-      // Fallback for older browsers
       const textArea = document.createElement('textarea');
       textArea.value = window.location.href;
       document.body.appendChild(textArea);
@@ -65,21 +76,6 @@ const ProductDetailPage = () => {
     { id: 'overview', name: 'Overview' },
     { id: 'specifications', name: 'Specifications' }
   ];
-
-  // Get all images for the product (display_image + secondary_images)
-  const getAllImages = () => {
-    if (!product) return [];
-    const images = [];
-    if (product.display_image) {
-      images.push(product.display_image);
-    }
-    if (product.secondary_images) {
-      images.push(...product.secondary_images);
-    }
-    return images;
-  };
-
-  const allImages = getAllImages();
 
   if (loading) {
     return (
@@ -133,14 +129,14 @@ const ProductDetailPage = () => {
           {/* Product Images */}
           <div>
             <div className="bg-white rounded-2xl p-4 shadow-lg mb-4">
-              {allImages.length > 0 ? (
+              {allImageUrls.length > 0 ? (
                 <img
-                  src={getImageUrl(allImages[selectedImage].url)}
+                  src={allImageUrls[selectedImage]}
                   alt={product.product_name}
                   loading="lazy"
                   decoding="async"
-                  width="600"
-                  height="400"
+                  width={600}
+                  height={400}
                   className="w-full h-96 object-cover rounded-xl"
                 />
               ) : (
@@ -151,23 +147,23 @@ const ProductDetailPage = () => {
                 </div>
               )}
             </div>
-            {allImages.length > 1 && (
+            {allImageUrls.length > 1 && (
               <div className="grid grid-cols-4 gap-4">
-                {allImages.map((image, index) => (
+                {allImageUrls.map((url, index) => (
                   <button
-                    key={image.id}
+                    key={index}
                     onClick={() => setSelectedImage(index)}
                     className={`bg-white rounded-xl p-2 shadow-lg transition-all duration-300 ${
                       selectedImage === index ? 'ring-2 ring-blue-600' : 'hover:shadow-xl'
                     }`}
                   >
                     <img
-                      src={getImageUrl(image.formats.thumbnail?.url || image.url)}
+                      src={url}
                       alt={`${product.product_name} ${index + 1}`}
                       loading="lazy"
                       decoding="async"
-                      width="80"
-                      height="80"
+                      width={80}
+                      height={80}
                       className="w-full h-20 object-cover rounded-lg"
                     />
                   </button>
@@ -178,63 +174,58 @@ const ProductDetailPage = () => {
 
           {/* Product Info */}
           <div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-center justify-between mb-4">
-                <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-                  {product.category?.cateogry_name || 'Product'}
-                </span>
-                <div className="flex items-center">
-                  <button 
-                    onClick={handleShare}
-                    aria-label="Share product link"
-                    className="p-2 text-gray-400 hover:text-blue-500 transition-colors duration-300 relative"
+            {
+              !isMobile
+              &&
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                    {product.category?.cateogry_name || 'Product'}
+                  </span>
+                  <div className="flex items-center">
+                    <button 
+                      onClick={handleShare}
+                      aria-label="Share product link"
+                      className="p-2 text-gray-400 hover:text-blue-500 transition-colors duration-300 relative"
+                    >
+                      <Share2 className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                  {product.product_name}
+                </h1>
+
+                <div className="text-gray-600 mb-6 leading-relaxed ">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      h1: ({children}) => <h2 className="text-xl font-bold text-gray-900 mb-3">{children}</h2>,
+                      h2: ({children}) => <h3 className="text-lg font-semibold text-gray-900 mb-2">{children}</h3>,
+                      h3: ({children}) => <h4 className="text-base font-semibold text-gray-900 mb-2">{children}</h4>,
+                      p: ({children}) => <p className="text-gray-600 leading-relaxed mb-3">{children}</p>,
+                      ul: ({children}) => <ul className="list-disc list-inside text-gray-600 mb-3 space-y-1">{children}</ul>,
+                      li: ({children}) => <li className="text-gray-600">{children}</li>,
+                      strong: ({children}) => <strong className="font-semibold text-gray-900">{children}</strong>,
+                      em: ({children}) => <em className="italic text-gray-700">{children}</em>,
+                      blockquote: ({children}) => <blockquote className="border-l-4 border-blue-500 pl-3 italic text-gray-700 bg-blue-50 p-3 rounded-r-lg my-3">{children}</blockquote>
+                    }}
                   >
-                    <Share2 className="h-5 w-5" />
+                    {product.product_description}
+                  </ReactMarkdown>
+                </div>
+
+                <div className="mb-6">
+                  <button 
+                    onClick={() => setIsQuoteModalOpen(true)}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-lg font-semibold text-lg transition-colors duration-300 flex items-center justify-center"
+                  >
+                    Request Quote
                   </button>
-                </div>
+                </div>                            
               </div>
-
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                {product.product_name}
-              </h1>
-
-              <div className="text-gray-600 mb-6 leading-relaxed">
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    h1: ({children}) => <h2 className="text-xl font-bold text-gray-900 mb-3">{children}</h2>,
-                    h2: ({children}) => <h3 className="text-lg font-semibold text-gray-900 mb-2">{children}</h3>,
-                    h3: ({children}) => <h4 className="text-base font-semibold text-gray-900 mb-2">{children}</h4>,
-                    p: ({children}) => <p className="text-gray-600 leading-relaxed mb-3">{children}</p>,
-                    ul: ({children}) => <ul className="list-disc list-inside text-gray-600 mb-3 space-y-1">{children}</ul>,
-                    li: ({children}) => <li className="text-gray-600">{children}</li>,
-                    strong: ({children}) => <strong className="font-semibold text-gray-900">{children}</strong>,
-                    em: ({children}) => <em className="italic text-gray-700">{children}</em>,
-                    blockquote: ({children}) => <blockquote className="border-l-4 border-blue-500 pl-3 italic text-gray-700 bg-blue-50 p-3 rounded-r-lg my-3">{children}</blockquote>
-                  }}
-                >
-                  {product.product_description}
-                </ReactMarkdown>
-              </div>
-
-              {/* Request Quote Button */}
-              <div className="mb-6">
-                <button 
-                  onClick={() => setIsQuoteModalOpen(true)}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-lg font-semibold text-lg transition-colors duration-300 flex items-center justify-center"
-                >
-                  Request Quote
-                </button>
-              </div>
-
-              {/* What's Included */}
-              {product.included && (
-                <div className="border-t border-gray-200 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">What's Included</h3>
-                  <p className="text-gray-600">{product.included}</p>
-                </div>
-              )}
-            </div>
+            }
           </div>
         </div>
 
@@ -261,35 +252,30 @@ const ProductDetailPage = () => {
           <div className="p-8">
             {selectedTab === 'overview' && (
               <div className="space-y-8">
-                <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      h1: ({children}) => <h1 className="text-3xl font-bold text-gray-900 mb-6">{children}</h1>,
-                      h2: ({children}) => <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8">{children}</h2>,
-                      h3: ({children}) => <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">{children}</h3>,
-                      p: ({children}) => <p className="text-gray-600 leading-relaxed mb-4">{children}</p>,
-                      table: ({children}) => <div className="overflow-x-auto mb-6"><table className="min-w-full bg-white border border-gray-200 rounded-lg">{children}</table></div>,
-                      thead: ({children}) => <thead className="bg-gray-50">{children}</thead>,
-                      tbody: ({children}) => <tbody className="divide-y divide-gray-200">{children}</tbody>,
-                      tr: ({children}) => <tr>{children}</tr>,
-                      th: ({children}) => <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{children}</th>,
-                      td: ({children}) => <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{children}</td>,
-                      ul: ({children}) => <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">{children}</ul>,
-                      li: ({children}) => <li className="text-gray-600">{children}</li>,
-                      strong: ({children}) => <strong className="font-semibold text-gray-900">{children}</strong>,
-                      em: ({children}) => <em className="italic text-gray-700">{children}</em>,
-                      blockquote: ({children}) => <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-700 bg-blue-50 p-4 rounded-r-lg my-4">{children}</blockquote>
-                    }}
-                  >
-                    {product.product_description}
-                  </ReactMarkdown>
-                </div>
-                {product.feature && (
-                  <div className="bg-blue-50 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Key Feature</h3>
-                    <p className="text-blue-600 font-medium capitalize">{product.feature.feature_name}</p>
-                  </div>
+                {/* Show iframe on desktop */}
+                {!isMobile ? (
+                  <iframe
+                    src={'https://api.skyelectronica.com' + product?.presentation.url}
+                    sandbox="allow-same-origin allow-scripts allow-popups"
+                    className="w-full h-96 transform scale-90 hover:scale-110 transition-transform duration-300"
+                  />
+                ) : (
+                  // On mobile show button and modal
+                  <>
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="w-full h-16 bg-blue-600 text-white rounded-lg"
+                    >
+                      View Presentation
+                    </button>
+                    {/* Modal */}
+                    {isModalOpen && (                      
+                      <>
+                        <ProductDetailModal product={product} setIsModalOpen={setIsModalOpen}/>
+                      </>            
+                    )}
+
+                  </>
                 )}
               </div>
             )}
@@ -299,21 +285,15 @@ const ProductDetailPage = () => {
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    h1: ({children}) => <h1 className="text-3xl font-bold text-gray-900 mb-6">{children}</h1>,
-                    h2: ({children}) => <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8">{children}</h2>,
-                    h3: ({children}) => <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">{children}</h3>,
-                    p: ({children}) => <p className="text-gray-600 leading-relaxed mb-4">{children}</p>,
-                    table: ({children}) => <div className="overflow-x-auto mb-6"><table className="min-w-full bg-white border border-gray-200 rounded-lg">{children}</table></div>,
-                    thead: ({children}) => <thead className="bg-gray-50">{children}</thead>,
-                    tbody: ({children}) => <tbody className="divide-y divide-gray-200">{children}</tbody>,
-                    tr: ({children}) => <tr>{children}</tr>,
-                    th: ({children}) => <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{children}</th>,
-                    td: ({children}) => <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{children}</td>,
-                    ul: ({children}) => <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">{children}</ul>,
+                    h1: ({children}) => <h2 className="text-xl font-bold text-gray-900 mb-3">{children}</h2>,
+                    h2: ({children}) => <h3 className="text-lg font-semibold text-gray-900 mb-2">{children}</h3>,
+                    h3: ({children}) => <h4 className="text-base font-semibold text-gray-900 mb-2">{children}</h4>,
+                    p: ({children}) => <p className="text-gray-600 leading-relaxed mb-3">{children}</p>,
+                    ul: ({children}) => <ul className="list-disc list-inside text-gray-600 mb-3 space-y-1">{children}</ul>,
                     li: ({children}) => <li className="text-gray-600">{children}</li>,
                     strong: ({children}) => <strong className="font-semibold text-gray-900">{children}</strong>,
                     em: ({children}) => <em className="italic text-gray-700">{children}</em>,
-                    blockquote: ({children}) => <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-700 bg-blue-50 p-4 rounded-r-lg my-4">{children}</blockquote>
+                    blockquote: ({children}) => <blockquote className="border-l-4 border-blue-500 pl-3 italic text-gray-700 bg-blue-50 p-3 rounded-r-lg my-3">{children}</blockquote>
                   }}
                 >
                   {product.specification}
@@ -323,7 +303,7 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Copy Notification */}
       {showCopyNotification && (
         <div className="fixed top-24 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center animate-fade-in">
@@ -331,7 +311,7 @@ const ProductDetailPage = () => {
           <span className="font-medium">Link copied successfully!</span>
         </div>
       )}
-      
+
       <GetQuoteModal 
         isOpen={isQuoteModalOpen} 
         onClose={() => setIsQuoteModalOpen(false)} 

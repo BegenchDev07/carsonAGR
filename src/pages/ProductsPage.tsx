@@ -268,7 +268,7 @@ const ProductsPage = () => {
               </div>
             )}
 
-            {/* Pagination - Placeholder for future implementation */}
+            
             {filteredProducts.length > 0 && (
               <div className="flex justify-center mt-12">
                 <div className="flex items-center space-x-2">

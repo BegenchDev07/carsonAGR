@@ -53,7 +53,7 @@ interface ApiResponse<T> {
   };
 }
 
-interface Product {
+export interface Product {
   id: number;
   documentId: string;
   createdAt: string;
@@ -67,6 +67,7 @@ interface Product {
   display_image?: Image;
   secondary_images?: Image[];
   feature?: Feature;
+  presentation: any;
 }
 
 interface Category {

@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Helmet>
         <html lang="en" />
-        <title>SkyElectronica - Advanced Drone Technology</title>
+        <title>SkyElectronics - Advanced Drone Technology</title>
         <meta name="description" content="Leading provider of advanced drone technology and electronics solutions for commercial, industrial, and professional applications worldwide." />
       </Helmet>
       <div className="min-h-screen bg-white">
