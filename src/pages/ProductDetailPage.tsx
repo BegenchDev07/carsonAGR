@@ -249,16 +249,18 @@ const ProductDetailPage = () => {
             </nav>
           </div>
 
-          <div className="p-8">
+          <div className='p-8'>          
             {selectedTab === 'overview' && (
               <div className="space-y-8">
                 {/* Show iframe on desktop */}
                 {!isMobile ? (
+                  <div className="h-[43rem] rounded-b-lg">
                   <iframe
                     src={'https://api.skyelectronica.com' + product?.presentation.url}
                     sandbox="allow-same-origin allow-scripts allow-popups"
-                    className="w-full h-96 transform scale-90 hover:scale-110 transition-transform duration-300"
+                    style={{height: "100%", width: "100%"}}
                   />
+                  </div>
                 ) : (
                   // On mobile show button and modal
                   <>
@@ -277,9 +279,8 @@ const ProductDetailPage = () => {
 
                   </>
                 )}
-              </div>
+              </div>            
             )}
-
             {selectedTab === 'specifications' && (
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <ReactMarkdown
