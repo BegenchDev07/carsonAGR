@@ -284,7 +284,7 @@ const ProductDetailPage = () => {
             {selectedTab === 'specifications' && (
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
+                  remarkPlugins={[remarkGfm]} // Enables GFM, including table support
                   components={{
                     h1: ({children}) => <h2 className="text-xl font-bold text-gray-900 mb-3">{children}</h2>,
                     h2: ({children}) => <h3 className="text-lg font-semibold text-gray-900 mb-2">{children}</h3>,
@@ -294,7 +294,10 @@ const ProductDetailPage = () => {
                     li: ({children}) => <li className="text-gray-600">{children}</li>,
                     strong: ({children}) => <strong className="font-semibold text-gray-900">{children}</strong>,
                     em: ({children}) => <em className="italic text-gray-700">{children}</em>,
-                    blockquote: ({children}) => <blockquote className="border-l-4 border-blue-500 pl-3 italic text-gray-700 bg-blue-50 p-3 rounded-r-lg my-3">{children}</blockquote>
+                    blockquote: ({children}) => <blockquote className="border-l-4 border-blue-500 pl-3 italic text-gray-700 bg-blue-50 p-3 rounded-r-lg my-3">{children}</blockquote>,
+                    table: ({children}) => <table className="table-auto w-full text-gray-600 border-collapse">{children}</table>,
+                    th: ({children}) => <th className="px-4 py-2 border-b">{children}</th>,
+                    td: ({children}) => <td className="px-4 py-2 border-b">{children}</td>,
                   }}
                 >
                   {product.specification}
