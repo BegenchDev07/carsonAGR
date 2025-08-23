@@ -5,7 +5,7 @@ const UseCasesSection = () => {
   const useCases = [
     {
       icon: Camera,
-      title: "Aerial Photography & Cinematography",
+      title: "Photography & Cinematography",
       description: "Professional-grade imaging solutions for film, real estate, and marketing with 4K+ resolution capabilities.",
       features: ["4K/8K Video Recording", "Gimbal Stabilization", "RAW Photo Capture"],
       size: "large", // Takes 2 columns
@@ -46,7 +46,7 @@ const UseCasesSection = () => {
     {
       icon: Wrench,
       title: "Search & Rescue",
-      description: "Life-saving operations in challenging terrains with thermal sensors and communication systems.",
+      description: "Life-saving rescues with thermal vision and seamless comms",
       features: ["Emergency Beacon", "Extended Flight Time", "All-Weather Operation"],
       size: "medium",
       image: "https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=1"
@@ -71,7 +71,7 @@ const UseCasesSection = () => {
           {useCases.map((useCase, index) => (
             <div
               key={index}
-              className={`relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl ${
+              className={`relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 ${
                 useCase.size === 'large' 
                   ? 'lg:col-span-2 lg:row-span-2' 
                   : useCase.size === 'medium' 
@@ -101,13 +101,11 @@ const UseCasesSection = () => {
                   <useCase.icon className="h-7 w-7 text-white" />
                 </div>
                 
-                <h3 id={`use-case-${index}`} className={`font-bold text-white mb-3 ${
-                  useCase.size === 'large' ? 'text-2xl md:text-3xl' : 'text-xl'
-                }`}>
+                <h3 id={`use-case-${index}`} className={`font-bold text-white mb-3 text-xl`}>
                   {useCase.title}
                 </h3>
                 
-                <p className="text-gray-200 text-sm mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <p className="text-gray-200 text-sm mb-3 opacity-1000 transition-opacity duration-300">
                   {useCase.description}
                 </p>
                 

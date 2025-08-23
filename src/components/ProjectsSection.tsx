@@ -67,9 +67,14 @@ const ProjectsSection = () => {
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[800px]">
+        <div className="grid overflow-x-auto gap-4 pb-4 grid-auto-flow-col grid-auto-columns-[320px] lg:grid-flow-row lg:grid-cols-4 lg:gap-6 lg:h-[800px] lg:overflow-visible lg:pb-0 lg:grid-auto-columns-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 no-scrollbar">
           {/* Large card - Top Left */}
-          <article className="lg:col-span-2 lg:row-span-2 relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-gray-900" aria-labelledby="project-0">
+          <article className="    
+            h-96 
+            /* Large screens: Spans 2x2 */
+            lg:col-span-2 lg:row-span-2 lg:h-auto
+            relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 bg-gray-900
+          " aria-labelledby="project-0">
             <div className="absolute inset-0">
               <img
                 src={projects[0].image}
@@ -84,13 +89,13 @@ const ProjectsSection = () => {
             </div>
 
             <div className="absolute top-6 right-6 z-10">
-              <div className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-3 rounded-full transition-all duration-300 group-hover:scale-110" aria-label="View project details">
+              <div className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-3 rounded-full transition-all group-hover:scale-110 duration-300" aria-label="View project details">
                 <ExternalLink className="h-5 w-5" />
               </div>
             </div>
 
             <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-              <h3 id="project-0" className="text-3xl font-bold text-white mb-4 leading-tight">
+              <h3 id="project-0" className="text-xl font-bold text-white mb-4 leading-tight">
                 {projects[0].title}
               </h3>
               
@@ -114,7 +119,13 @@ const ProjectsSection = () => {
           </article>
 
           {/* Medium card - Top Right */}
-          <article className="lg:col-span-2 lg:row-span-1 relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-gray-900" aria-labelledby="project-1">
+          <article className="
+            /* Mobile: Single grid cell with fixed width */
+            h-96 
+            /* Large screens: Spans 2x1 */
+            lg:col-span-2 lg:row-span-1 lg:h-auto
+            relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 bg-gray-900
+          " aria-labelledby="project-1">
             <div className="absolute inset-0">
               <img
                 src={projects[1].image}
@@ -155,7 +166,13 @@ const ProjectsSection = () => {
           </article>
 
           {/* Small card - Middle Right */}
-          <article className="lg:col-span-1 lg:row-span-1 relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-gray-900" aria-labelledby="project-2">
+          <article className="
+            /* Mobile: Single grid cell with smaller width */
+            h-96 grid-auto-columns-[256px]
+            /* Large screens: Spans 1x1 */
+            lg:col-span-1 lg:row-span-1 lg:h-auto lg:grid-auto-columns-auto
+            relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 bg-gray-900
+          " aria-labelledby="project-2">
             <div className="absolute inset-0">
               <img
                 src={projects[2].image}
@@ -196,7 +213,13 @@ const ProjectsSection = () => {
           </article>
 
           {/* Medium card - Bottom Right */}
-          <article className="lg:col-span-1 lg:row-span-1 relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-gray-900" aria-labelledby="project-3">
+          <article className="
+            /* Mobile: Single grid cell with smaller width */
+            h-96 grid-auto-columns-[256px]
+            /* Large screens: Spans 1x1 */
+            lg:col-span-1 lg:row-span-1 lg:h-auto lg:grid-auto-columns-auto
+            relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 bg-gray-900
+          " aria-labelledby="project-3">
             <div className="absolute inset-0">
               <img
                 src={projects[3].image}
@@ -237,7 +260,13 @@ const ProjectsSection = () => {
           </article>
 
           {/* Bottom row - Two medium cards */}
-          <article className="lg:col-span-2 lg:row-span-1 relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-gray-900" aria-labelledby="project-4">
+          <article className="
+            /* Mobile: Single grid cell with fixed width */
+            h-96 
+            /* Large screens: Spans 2x1 */
+            lg:col-span-2 lg:row-span-1 lg:h-auto
+            relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 bg-gray-900
+          " aria-labelledby="project-4">
             <div className="absolute inset-0">
               <img
                 src={projects[4].image}
@@ -277,7 +306,13 @@ const ProjectsSection = () => {
             <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 transition-all duration-300" />
           </article>
 
-          <article className="lg:col-span-2 lg:row-span-1 relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-gray-900" aria-labelledby="project-5">
+          <article className="
+            /* Mobile: Single grid cell with fixed width */
+            h-96 
+            /* Large screens: Spans 2x1 */
+            lg:col-span-2 lg:row-span-1 lg:h-auto
+            relative overflow-hidden rounded-3xl group cursor-pointer transition-all duration-500 bg-gray-900
+          " aria-labelledby="project-5">
             <div className="absolute inset-0">
               <img
                 src={projects[5].image}

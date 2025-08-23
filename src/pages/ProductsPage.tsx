@@ -222,7 +222,7 @@ const ProductsPage = () => {
                   ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
                   : 'grid-cols-1'
               }`}>
-                {filteredProducts.map(product => (
+                {filteredProducts.map((product:any) => (
                   <Link
                     key={product.documentId}
                     to={`/product/${product.documentId}`}
@@ -231,7 +231,7 @@ const ProductsPage = () => {
                     <div className="relative overflow-hidden">
                       {product.display_image ? (
                         <img
-                          src={getImageUrl(product.display_image.url)}
+                          src={getImageUrl(product.display_image.formats.small.url)}
                           alt={product.product_name}
                           loading="lazy"
                           decoding="async"

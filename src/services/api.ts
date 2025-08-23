@@ -141,4 +141,10 @@ export const productsApi = {
     const response = await apiRequest<Feature[]>('/features/');
     return response.data;
   },
+  
+  //Get Best Sellers
+  getBesSellerProducts: async(): Promise<Product[]> => {
+    const response = await apiRequest<Product[]>('/products?filters[is_best_seller][$eq]=true&populate=*')
+    return response.data;
+  }
 };

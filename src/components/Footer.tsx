@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { MessageCircle, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -52,36 +52,18 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6">Services</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Technical Support</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Training Programs</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Maintenance</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Custom Solutions</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Consulting</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Certification</a></li>
+              <li><a href="/contacts" className="text-gray-400 hover:text-white transition-colors duration-300">Technical Support</a></li>
+              <li><a href="/contacts" className="text-gray-400 hover:text-white transition-colors duration-300">Training Programs</a></li>
+              <li><a href="/contacts" className="text-gray-400 hover:text-white transition-colors duration-300">Maintenance</a></li>
+              <li><a href="/contacts" className="text-gray-400 hover:text-white transition-colors duration-300">Custom Solutions</a></li>
+              <li><a href="/contacts" className="text-gray-400 hover:text-white transition-colors duration-300">Consulting</a></li>
+              <li><a href="/contacts" className="text-gray-400 hover:text-white transition-colors duration-300">Certification</a></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">Contact</h3>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-blue-400 mt-1 flex-shrink-0" />
-                <div className="text-gray-400">
-                  <p>123 Innovation Drive</p>
-                  <p>Tech Valley, CA 94025</p>
-                  <p>United States</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-blue-400 flex-shrink-0" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-blue-400 flex-shrink-0" />
-                <span className="text-gray-400">info@aerodyne.com</span>
-              </div>
-            </div>
+            <a href='/contacts' className="text-lg font-semibold mb-6 underline flex items-center justify-center h-12 w-auto px-3 py-2 bg-blue-600 rounded-lg">Contact Us</a>            
           </div>
         </div>
 

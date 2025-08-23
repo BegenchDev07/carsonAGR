@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, MessageSquare, Users, Headphones } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageCircle, Languages } from 'lucide-react';
 
 const ContactsPage = () => {
   const [formData, setFormData] = useState({
@@ -22,62 +22,80 @@ const ContactsPage = () => {
     // Handle form submission
     console.log('Form submitted:', formData);
   };
-
-  const contactMethods = [
+  const team = [
     {
-      icon: Phone,
-      title: "Phone Support",
-      description: "Speak directly with our experts",
-      contact: "+1 (555) 123-4567",
-      availability: "Mon-Fri, 9AM-6PM PST"
+      name: "Carson",
+      role: "CEO & Founder",      
+      bio: "Former aerospace engineer with 15+ years in autonomous systems development."
     },
     {
-      icon: Mail,
-      title: "Email Support",
-      description: "Get detailed assistance via email",
-      contact: "support@aerodyne.com",
-      availability: "24/7 response within 4 hours"
+      name: "Marcus Rodriguez",
+      role: "CTO",
+      image: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=1",
+      bio: "AI and robotics expert, leading our technical innovation and product development."
     },
     {
-      icon: MessageSquare,
-      title: "Live Chat",
-      description: "Instant help from our team",
-      contact: "Available on website",
-      availability: "Mon-Fri, 8AM-8PM PST"
+      name: "Dr. Emily Watson",
+      role: "Head of R&D",
+      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=1",
+      bio: "PhD in Aeronautical Engineering, pioneering next-generation flight control systems."
     },
     {
-      icon: Users,
-      title: "Sales Team",
-      description: "Discuss custom solutions",
-      contact: "sales@aerodyne.com",
-      availability: "Mon-Fri, 9AM-6PM PST"
+      name: "James Park",
+      role: "VP of Operations",
+      image: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=1",
+      bio: "Operations specialist ensuring global manufacturing excellence and quality control."
     }
   ];
 
   const offices = [
     {
-      city: "San Francisco",
-      address: "123 Innovation Drive, Tech Valley, CA 94025",
-      phone: "+1 (555) 123-4567",
-      email: "sf@skyelectronica.com"
+      name: "Carson",
+      position: "Cofounder, Director of Trade",
+      languages: "English, Chinese",
+      phone: "+85261545880",
+      email: "chenrucheng@qifeizn.com",
+      whatsapp: " wa.link/9sgo22",
     },
     {
-      city: "New York",
-      address: "456 Business Plaza, Manhattan, NY 10001",
-      phone: "+1 (555) 234-5678",
-      email: "ny@skyelectronica.com"
+      name: "Tim",
+      position: "Head Sales in Europe, South America, Middle East",
+      languages: "English, Russian",
+      phone: "+77479888860",
+      email: "timagr@skyelectronicshk.com",
+      whatsapp: "https://wa.link/z4a4wh",
     },
     {
-      city: "London",
-      address: "789 Tech Square, London, UK EC1A 1BB",
-      phone: "+44 20 1234 5678",
-      email: "london@skyelectronica.com"
+      name: "Ali",
+      position: "Sales in Middle East",
+      languages: "English, Russian, Persian(Farsi), Arabic",
+      phone: "+852 62320524",
+      email: null,
+      whatsapp: "https://wa.link/057ddc"
     },
     {
-      city: "Tokyo",
-      address: "321 Innovation Center, Shibuya, Tokyo 150-0002",
-      phone: "+81 3 1234 5678",
-      email: "tokyo@skyelectronica.com"
+      name: "Jack",
+      languages: "English, Chinese",
+      position: "International Sales",
+      phone: "+852 6235 2890",
+      email: "smith@skyelectronicshk.com",
+      whatsapp: "https://wa.link/htnjz9"
+    },
+    {
+      name: "Diamond",
+      languages: "English, Chinese",
+      position: "International Sales",
+      phone: "+85261574997",
+      email: "diamond@skyelectronicshk.com",
+      whatsapp: null
+    },
+    {
+      name: "Ray",
+      languages: "English, Chinese",
+      position: "International Sales",
+      phone: null,
+      email: "ray@skyelectronicshk.com",
+      whatsapp: null
     }
   ];
 
@@ -99,30 +117,7 @@ const ContactsPage = () => {
       </section>
 
       {/* Contact Methods */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">How Can We Help?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Choose the best way to reach us based on your needs and preferences.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {contactMethods.map((method, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
-                <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <method.icon className="h-8 w-8 text-blue-600" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{method.title}</h3>
-                <p className="text-gray-600 mb-4">{method.description}</p>
-                <p className="text-blue-600 font-semibold mb-2">{method.contact}</p>
-                <p className="text-sm text-gray-500">{method.availability}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Contact Form & Info */}
       <section className="py-24 bg-white">
@@ -226,70 +221,15 @@ const ContactsPage = () => {
                 </button>
               </form>
             </div>
-
-            {/* Contact Information */}
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Contact Information</h2>
-              
-              <div className="space-y-8">
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <MapPin className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Headquarters</h3>
-                    <p className="text-gray-600">
-                      123 Innovation Drive<br />
-                      Tech Valley, CA 94025<br />
-                      United States
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <Phone className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <Mail className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Email</h3>
-                    <p className="text-gray-600">info@aerodyne.com</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <Clock className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Business Hours</h3>
-                    <p className="text-gray-600">
-                      Monday - Friday: 9:00 AM - 6:00 PM PST<br />
-                      Saturday: 10:00 AM - 4:00 PM PST<br />
-                      Sunday: Closed
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Global Offices */}
+      {/* Contact Information */}            
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Global Offices</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Contact Information</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We're here to serve you with local expertise and global reach.
             </p>
@@ -298,26 +238,51 @@ const ContactsPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {offices.map((office, index) => (
               <div key={index} className="bg-white rounded-2xl p-6 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{office.city}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{office.name}</h3>
                 <div className="space-y-3 text-sm text-gray-600">
                   <div className="flex items-start">
-                    <MapPin className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
-                    <span>{office.address}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-id-card-lanyard-icon lucide-id-card-lanyard h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0"><path d="M13.5 8h-3"/><path d="m15 2-1 2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/><path d="M16.899 22A5 5 0 0 0 7.1 22"/><path d="m9 2 3 6"/><circle cx="12" cy="15" r="3"/></svg>
+                    {/* <MapPin className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" /> */}
+                    <span>{office.position}</span>
                   </div>
+                  {
+                    office.languages !== null
+                    &&
+                    <div className="flex items-start">
+                      <Languages className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+                      <span>{office.languages}</span>
+                    </div>
+                  }
+                  {
+                    office.phone !== null
+                    &&
                   <div className="flex items-center">
                     <Phone className="h-4 w-4 text-blue-600 mr-2 flex-shrink-0" />
                     <span>{office.phone}</span>
                   </div>
-                  <div className="flex items-center">
-                    <Mail className="h-4 w-4 text-blue-600 mr-2 flex-shrink-0" />
-                    <span>{office.email}</span>
-                  </div>
+                  }
+                  {
+                    office.email !== null
+                    &&
+                    <div className="flex items-center">
+                      <Mail className="h-4 w-4 text-blue-600 mr-2 flex-shrink-0" />
+                      <span>{office.email}</span>
+                    </div>
+                  }
+                  {
+                    office.whatsapp !== null
+                    &&
+                    <div className="flex items-center">
+                      <MessageCircle className="h-4 w-4 text-blue-600 mr-2 flex-shrink-0" />
+                      <a className='underline' href={office.whatsapp}>Chat</a>
+                    </div>
+                  }
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </section>      
     </div>
   );
 };

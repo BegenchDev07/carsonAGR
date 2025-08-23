@@ -60,7 +60,7 @@ const HeroSection = () => {
 
   return (
     <>
-    <section className="relative h-screen overflow-hidden bg-gray-900" role="banner" aria-label="Hero carousel">
+    <section className="relative h-[35rem] overflow-hidden bg-gray-900" role="banner" aria-label="Hero carousel">
       {/* Skeleton loader while images load */}
       {!imagesLoaded && (
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 animate-pulse">

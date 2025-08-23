@@ -19,14 +19,8 @@ const AchievementsSection = () => {
       description: "Global market presence"
     },
     {
-      icon: Zap,
-      number: "500km",
-      label: "Maximum Range",
-      description: "Extended flight capability"
-    },
-    {
       icon: Users,
-      number: "1,200+",
+      number: "120",
       label: "R&D Engineers",
       description: "Innovation workforce"
     },
@@ -97,7 +91,7 @@ const AchievementsSection = () => {
         </div>
 
         {/* Achievement Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 mb-16 md:mb-20" role="list" aria-label="Company achievements">
+        <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-6 md:gap-8 mb-16 md:mb-20 justify-items-center" role="list" aria-label="Company achievements">
           {achievements.map((achievement, index) => (
             <div
               key={index}
