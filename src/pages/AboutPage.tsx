@@ -53,9 +53,7 @@ const AboutPage = () => {
                 <h2 className="text-3xl font-bold text-gray-900">Fulfilment and Production Capabilities</h2>
               </div>
               <p className="text-gray-600 text-lg leading-relaxed">
-                To democratize access to advanced drone technology, empowering businesses and 
-                organizations worldwide to achieve their goals through innovative, reliable, 
-                and sustainable autonomous flight solutions.
+                We can deliver up to 10.000 DJI and Autel drones a month. Same for FPV, and small drones from AGR. Also production for VTOLs IS  about 100 UAVs a month  
               </p>
             </div>
             
